@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 const slides = [
   {
     id: 1,
-    image: "/hero-1.jpg",
+    image: `${import.meta.env.BASE_URL}hero-1.jpg`,
     label: "Koleksi Malam : Drop 01",
     title: "Didesain untuk\nJalan Malam",
     desc: "Hoodie premium dengan potongan oversized. Nyaman, gelap, kuat.",
@@ -11,7 +11,7 @@ const slides = [
   },
   {
     id: 2,
-    image: "/hero-2.jpg",
+    image: `${import.meta.env.BASE_URL}hero-2.jpg`,
     label: "Esensial Harian : Drop 02",
     title: "Minimalis yang\nBerbicara Keras",
     desc: "Koleksi serba putih, bersih, tegas, dan siap dipadukan apapun.",
@@ -19,7 +19,7 @@ const slides = [
   },
   {
     id: 3,
-    image: "/hero-3.jpg",
+    image: `${import.meta.env.BASE_URL}hero-3.jpg`,
     label: "Edisi Golden Hour : Drop 03",
     title: "Hangat di Luar,\nTajam di Dalam",
     desc: "Earth-tone jacket untuk kamu yang tahu kapan harus tampil berbeda.",

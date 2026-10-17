@@ -8,8 +8,12 @@ import Footer from "./components/Footer";
 
 export default function App() {
   const [keranjang, setKeranjang] = useState(() => {
-    const dataTersimpan = localStorage.getItem("genz_keranjang");
-    return dataTersimpan ? JSON.parse(dataTersimpan) : [];
+    try {
+      const dataTersimpan = localStorage.getItem("genz_keranjang");
+      return dataTersimpan ? JSON.parse(dataTersimpan) : [];
+    } catch {
+      return [];
+    }
   });
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [toast, setToast] = useState(null);
