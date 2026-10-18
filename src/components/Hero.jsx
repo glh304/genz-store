@@ -100,36 +100,19 @@ export default function Hero() {
           </a>
         </div>
 
-        <div className="mt-8 flex items-center gap-4">
-          <button
-            onClick={goPrev}
-            className="w-10 h-10 border border-stone-500 hover:border-stone-100 text-stone-300 hover:text-stone-50 flex items-center justify-center transition text-xl"
-            aria-label="Slide sebelumnya"
-          >
-            ‹
-          </button>
-          <div className="flex gap-2 items-center">
-            {slides.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setActiveIndex(i)}
-                className="rounded-full transition-all duration-300"
-                style={{
-                  width: i === activeIndex ? "0.75rem" : "0.5rem",
-                  height: i === activeIndex ? "0.75rem" : "0.5rem",
-                  background: i === activeIndex ? "#f5f5f4" : "#78716c",
-                }}
-                aria-label={`Slide ${i + 1}`}
-              />
-            ))}
-          </div>
-          <button
-            onClick={goNext}
-            className="w-10 h-10 border border-stone-500 hover:border-stone-100 text-stone-300 hover:text-stone-50 flex items-center justify-center transition text-xl"
-            aria-label="Slide berikutnya"
-          >
-            ›
-          </button>
+        <div className="mt-8 flex gap-2.5 items-center">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveIndex(i)}
+              className="h-1.5 transition-all duration-300 rounded-full cursor-pointer"
+              style={{
+                width: i === activeIndex ? "2rem" : "0.5rem",
+                background: i === activeIndex ? "#f5f5f4" : "rgba(255,255,255,0.35)",
+              }}
+              aria-label={`Slide ${i + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>
