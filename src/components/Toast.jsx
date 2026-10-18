@@ -11,8 +11,8 @@ export default function Toast({ toast, onClose }) {
   if (!toast) return null;
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[999] animate-slide-up">
-      <div className="flex items-center gap-3 bg-stone-950 text-stone-50 px-4 py-3 shadow-2xl min-w-[300px] max-w-sm">
+    <div className="fixed bottom-6 inset-x-4 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 z-[999] animate-slide-up">
+      <div className="flex items-center gap-3 bg-stone-950 text-stone-50 px-4 py-3 shadow-2xl w-full sm:min-w-[300px] sm:max-w-sm">
         <img
           src={toast.gambar}
           alt={toast.nama}

@@ -1,4 +1,4 @@
-export default function Footer() {
+export default function Footer({ onPilihKategori }) {
   return (
     <footer className="bg-stone-950 text-stone-400 mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -18,13 +18,23 @@ export default function Footer() {
               Koleksi
             </p>
             <ul className="space-y-2 text-sm">
-              {["Semua Produk", "Pria", "Wanita", "Aksesoris", "Sale"].map((item) => (
-                <li key={item}>
-                  <a href="#katalog" className="hover:text-stone-50 transition">
-                    {item}
-                  </a>
-                </li>
-              ))}
+              {["Semua Produk", "Pria", "Wanita", "Aksesoris"].map((item) => {
+                const targetKat = item === "Semua Produk" ? "Semua" : item;
+                return (
+                  <li key={item}>
+                    <button
+                      onClick={() => {
+                        if (onPilihKategori) onPilihKategori(targetKat);
+                        const el = document.getElementById("katalog");
+                        if (el) el.scrollIntoView({ behavior: "smooth" });
+                      }}
+                      className="hover:text-stone-50 transition cursor-pointer text-left"
+                    >
+                      {item}
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 

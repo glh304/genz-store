@@ -115,12 +115,12 @@ export default function ProductList({
   onTambahKeranjang,
   kataKunci = "",
   onResetCari,
+  kategori = "Semua",
+  onPilihKategori,
 }) {
-  const [aktifKategori, setAktifKategori] = useState("Semua");
-
   const produkTampil = PRODUK_LIST.filter((p) => {
     const cocokKategori =
-      aktifKategori === "Semua" || p.kategori === aktifKategori;
+      kategori === "Semua" || p.kategori === kategori;
     const cocokNama = p.nama.toLowerCase().includes(kataKunci.toLowerCase());
     return cocokKategori && cocokNama;
   });
@@ -142,9 +142,9 @@ export default function ProductList({
           {KATEGORI.map(({ label, value, icon: Icon }) => (
             <button
               key={value}
-              onClick={() => setAktifKategori(value)}
+              onClick={() => onPilihKategori && onPilihKategori(value)}
               className={`flex items-center gap-1.5 px-4 py-2 text-xs font-bold uppercase tracking-widest border transition cursor-pointer ${
-                aktifKategori === value
+                kategori === value
                   ? "bg-stone-950 text-stone-50 border-stone-950"
                   : "bg-transparent text-stone-500 border-stone-300 hover:border-stone-600 hover:text-stone-800"
               }`}
@@ -174,7 +174,7 @@ export default function ProductList({
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-3 gap-y-6">
           {produkTampil.map((produk) => (
-            <div key={produk.id} className="group flex flex-col">
+            <div key={produk.id} className="group flex flex-col h-full">
               <div className="relative aspect-square w-full overflow-hidden bg-stone-100 mb-2">
                 <img
                   src={produk.gambar}
@@ -200,10 +200,11 @@ export default function ProductList({
               </div>
               <button
                 onClick={() => onTambahKeranjang(produk)}
-                className="mt-4 w-full flex items-center justify-center gap-2 border border-stone-900 bg-transparent hover:bg-stone-950 text-stone-950 hover:text-stone-50 py-2.5 text-xs font-bold uppercase tracking-widest transition cursor-pointer active:scale-98"
+                className="mt-auto pt-4 w-full flex items-center justify-center gap-1.5 border border-stone-900 bg-transparent hover:bg-stone-950 text-stone-950 hover:text-stone-50 py-2.5 text-[11px] font-bold uppercase tracking-wider transition cursor-pointer active:scale-95"
               >
-                <Plus className="w-3.5 h-3.5" />
-                <span>Tambah Keranjang</span>
+                <Plus className="w-3 h-3 flex-shrink-0" />
+                <span className="sm:hidden">Keranjang</span>
+                <span className="hidden sm:inline">Tambah Keranjang</span>
               </button>
             </div>
           ))}

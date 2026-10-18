@@ -8,6 +8,7 @@ const slides = [
     title: "Didesain untuk\nJalan Malam",
     desc: "Hoodie premium dengan potongan oversized. Nyaman, gelap, kuat.",
     cta: "Belanja Sekarang",
+    posisi: "object-[65%_center] sm:object-center",
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ const slides = [
     title: "Minimalis yang\nBerbicara Keras",
     desc: "Koleksi serba putih, bersih, tegas, dan siap dipadukan apapun.",
     cta: "Lihat Koleksi",
+    posisi: "object-[68%_center] sm:object-center",
   },
   {
     id: 3,
@@ -24,11 +26,13 @@ const slides = [
     title: "Hangat di Luar,\nTajam di Dalam",
     desc: "Earth-tone jacket untuk kamu yang tahu kapan harus tampil berbeda.",
     cta: "Eksplorasi",
+    posisi: "object-center",
   },
 ];
 
 export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(null);
 
   const goNext = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % slides.length);
@@ -38,6 +42,23 @@ export default function Hero() {
     setActiveIndex((prev) => (prev - 1 + slides.length) % slides.length);
   }, []);
 
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const distance = touchStartX - touchEndX;
+
+    if (distance > 45) {
+      goNext(); // Geser kiri -> next
+    } else if (distance < -45) {
+      goPrev(); // Geser kanan -> prev
+    }
+    setTouchStartX(null);
+  };
+
   useEffect(() => {
     const timer = setInterval(goNext, 5000);
     return () => clearInterval(timer);
@@ -46,20 +67,24 @@ export default function Hero() {
   const current = slides[activeIndex];
 
   return (
-    <section className="relative w-full h-screen overflow-hidden bg-stone-900">
+    <section
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      className="relative w-full h-[100dvh] overflow-hidden bg-stone-900 select-none"
+    >
       {slides.map((slide, i) => (
         <img
           key={slide.id}
           src={slide.image}
           alt={slide.label}
-          className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${slide.posisi}`}
           style={{ opacity: i === activeIndex ? 1 : 0 }}
         />
       ))}
 
-      <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/40 to-stone-950/10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/50 to-stone-950/20" />
 
-      <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-16 md:pb-20 text-stone-50">
+      <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-20 md:pb-24 text-stone-50">
         <p className="text-xs font-bold tracking-widest text-stone-300 uppercase mb-3">
           {current.label}
         </p>

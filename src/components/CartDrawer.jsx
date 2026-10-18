@@ -1,6 +1,18 @@
+import { useEffect } from "react";
 import { X, Trash2, ShoppingBag, Minus, Plus } from "lucide-react";
 
 export default function CartDrawer({ isOpen, onClose, items, onHapusItem, onUbahQty }) {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const totalHarga = items.reduce((total, item) => total + item.harga * item.qty, 0);

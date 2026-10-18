@@ -18,6 +18,7 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [toast, setToast] = useState(null);
   const [kataKunci, setKataKunci] = useState("");
+  const [kategori, setKategori] = useState("Semua");
   useEffect(() => {
     localStorage.setItem("genz_keranjang", JSON.stringify(keranjang));
   }, [keranjang]);
@@ -58,14 +59,21 @@ export default function App() {
         onBukaKeranjang={() => setIsCartOpen(true)}
         kataKunci={kataKunci}
         onCari={setKataKunci}
+        kategori={kategori}
+        onPilihKategori={setKategori}
       />
       <Hero />
       <ProductList
         onTambahKeranjang={handleTambahKeranjang}
         kataKunci={kataKunci}
-        onResetCari={() => setKataKunci("")}
+        onResetCari={() => {
+          setKataKunci("");
+          setKategori("Semua");
+        }}
+        kategori={kategori}
+        onPilihKategori={setKategori}
       />
-      <Footer />
+      <Footer onPilihKategori={setKategori} />
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
