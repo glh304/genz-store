@@ -85,9 +85,6 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/50 to-stone-950/20" />
 
       <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-20 md:pb-24 text-stone-50">
-        <p className="text-xs font-bold tracking-widest text-stone-300 uppercase mb-3">
-          {current.label}
-        </p>
         <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight uppercase leading-none whitespace-pre-line">
           {current.title}
         </h1>
